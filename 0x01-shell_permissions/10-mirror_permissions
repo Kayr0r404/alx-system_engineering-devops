@@ -1,2 +1,2 @@
 #!/bin/bash
-chmode ug=wr,or hello
+chmode --reference=olleh hello
