@@ -6,7 +6,7 @@
 min_counter=1
 hour_counte=0
 
-while [[ hour_counte -lt 12 ]]
+while [[ hour_counte -le 12 ]]
 do
     echo "hour: $hour_counte"
     min_counter=1
