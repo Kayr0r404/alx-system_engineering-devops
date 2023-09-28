@@ -11,17 +11,19 @@
         # if the file is a regular file: school is a regular file
         # if the file is not a regular file: (nothing)
 file="school"
-if [[ -a ${file} ]]; then
+    
+if [[ -e ${file} ]]; then
     echo "school file exists"
-    if [[ -s ${file} ]]; then
-        echo "school file not is empty"
-    else
-        echo "school file is empty"
-    fi
-    if [[ -f ${file} ]]; then
-        echo "school is a regular file"
-    fi
 else
     echo "school file does not exist"
 fi
 
+if [[ -s ${file} ]]; then
+        echo "school file not is empty"
+    else
+        echo "school file is empty"
+fi
+
+if [[ -f ${file} ]]; then
+    echo "school is a regular file"
+fi
