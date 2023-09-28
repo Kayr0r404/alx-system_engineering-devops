@@ -10,15 +10,15 @@
         # if the file is not empty: school file is not empty
         # if the file is a regular file: school is a regular file
         # if the file is not a regular file: (nothing)
-
-if [[ -a ${school} ]]; then
+file="school"
+if [[ -a ${file} ]]; then
     echo "school file exists"
-    if [[ -s ${schol} ]]; then
+    if [[ -s ${file} ]]; then
         echo "school file not is empty"
     else
         echo "school file is empty"
     fi
-    if [[ -f ${school} ]]; then
+    if [[ -f ${file} ]]; then
         echo "school is a regular file"
     fi
 else
