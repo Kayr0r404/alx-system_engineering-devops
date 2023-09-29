@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# displays:The content of the current director. In a list format
+
+for file in *; do
+  if [[ -f $file ]]; then
+    name_after_dash="${file#*-}"
+    if [[ $name_after_dash != "$file" ]]; then
+      echo "$name_after_dash"
+    fi
+  fi
+done
+
+
+
