@@ -18,7 +18,7 @@ do
     elif (( counter % 5 == 0 )); then
         echo "Buzz"
     else
-        echo counter
+        echo $counter
     fi
     (( counter++ ))
 done
