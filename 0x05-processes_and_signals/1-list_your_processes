@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # list all pid of current process
 
-ps -u
+ps -auxf
