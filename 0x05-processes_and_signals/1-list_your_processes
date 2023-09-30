@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # list all pid of current process
 
-ps -eo user,pid,pcpu,pmem,vsz,rss,tname,stat,start_time,bsdtime,ucomm --sort user
+ps -u
