@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# list all pid of current process
+
+ps -auxf | grep bash
