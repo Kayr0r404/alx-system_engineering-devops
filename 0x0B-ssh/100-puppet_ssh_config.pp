@@ -1,11 +1,8 @@
 # best practices
 
-$content = "Include /etc/ssh/ssh_config.d/*.conf\nHost *\n\tPasswordAuthentication no"
+$content = "Host *\n\tIdentityFile ~/.ssh/school\n\tPasswordAuthentication no"
 
-file {
-    '/tmp/school':
-    mode    => '0744',
-    owner   => www-data,
-    group   => www-data,
+file { '/etc/ssh/ssh_config':
+    ensure  => 'present',
     content => $content,
 }
