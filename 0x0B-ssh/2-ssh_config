@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# SSH configuration file for the local SSH client
+
+cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh/school && touch ~/.ssh/school/authorized_keys && chmod -R go= ~/.ssh/school && cat >> ~/.ssh/school/authorized_keys"
