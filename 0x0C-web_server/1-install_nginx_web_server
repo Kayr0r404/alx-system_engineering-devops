@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
-# install web-server(nginix) in a sever
+set -e
 
+# Update package list and install Nginx
 sudo apt-get update
-sudo apt-get install -y ngnix
-sudo ufw allow 'Nginx HTTP'
+sudo apt-get install -y nginx
 
-# sudo su
+# Configure Nginx to listen on port 80
+sudo sed -i 's/\blisten 80\b/listen 80 default_server/g' /etc/nginx/sites-available/default
+
+# Write a simple "Hello World!" page to the default HTML directory
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Optionally restart Nginx to apply changes
+# sudo systemctl restart nginx
