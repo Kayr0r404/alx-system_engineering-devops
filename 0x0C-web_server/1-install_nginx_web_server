@@ -5,7 +5,5 @@ sudo apt-get update
 sudo apt-get install -y ngnix
 sudo ufw allow 'Nginx HTTP'
 
-# Write a simple "Hello World!" page to the default HTML directory
 sudo su
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
-service nginx restart
