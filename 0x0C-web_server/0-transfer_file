@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Transfer files from client to a server
-# Usage: ./transfer_file.sh PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY
+# Usage: .transfer_file.sh PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY
 
 path_to_file=$1
 IP=$2
@@ -8,8 +8,8 @@ usr=$3
 path_to_ssh_key=$4
 
 if [ "$#" -lt 4 ]; then
-    echo 'Usage: ./transfer_file.sh PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY'
+    echo 'Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY'
     exit 1
 fi
 
-scp $path_to_ssh_key $path_to_file $usr'@'$IP:'~/'
+scp -i "$path_to_ssh_key" "$path_to_file" "$usr@$IP:/~/"
