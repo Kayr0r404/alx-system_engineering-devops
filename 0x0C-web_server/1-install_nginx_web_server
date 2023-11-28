@@ -9,7 +9,5 @@ sudo apt-get install -y nginx
 sudo sed -i 's/\blisten 80\b/listen 80 default_server/g' /etc/nginx/sites-available/default
 
 # Write a simple "Hello World!" page to the default HTML directory
+sudo su
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
-
-# Optionally restart Nginx to apply changes
-# sudo systemctl restart nginx
