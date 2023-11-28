@@ -3,8 +3,8 @@
 # Usage: .transfer_file.sh PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY
 
 path_to_file=$1
-IP=$2
-usr=$3
+server_ip=$2
+username=$3
 path_to_ssh_key=$4
 
 if [ "$#" -lt 4 ]; then
@@ -12,4 +12,7 @@ if [ "$#" -lt 4 ]; then
     exit 1
 fi
 
-scp -i "$path_to_ssh_key" "$path_to_file" "$usr@$IP:/~/"
+scp_cmd="scp -o StrictHostKeyChecking=no -i $path_to_ssh_key $path_to_file $username@$server_ip:~/"
+
+# Execute the SCP command
+$scp_cmd
