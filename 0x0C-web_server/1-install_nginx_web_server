@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # install web-server(nginix) in a sever
 
-sudo apt-get install -y nginix
+sudo apt-get install -y ngnix
 sudo ufw allow 'Nginx HTTP'
