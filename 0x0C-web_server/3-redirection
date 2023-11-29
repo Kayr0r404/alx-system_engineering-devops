@@ -8,6 +8,7 @@ sudo ufw allow 'Nginx HTTP'
 sudo su
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
+CONFIG_FILE="/etc/nginx/sites-available/default"
 # update config file to redirect
 printf %s "server {
     listen 80;
@@ -16,9 +17,8 @@ printf %s "server {
     index  index.html index.htm;
 
     location /redirect_me {
-        return 301 Moved Permanently;
+        return 301 Moved Permanently http://google.com/;
     }
-}" > $redirect_me
-
+}" > $CONFIG_FILE
 
 service nginx restart
