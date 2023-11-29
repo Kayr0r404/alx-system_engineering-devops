@@ -8,17 +8,7 @@ sudo ufw allow 'Nginx HTTP'
 sudo su
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
-CONFIG_FILE="/etc/nginx/sites-available/default"
-# update config file to redirect
-printf %s "server {
-    listen 80;
-    listen [::]:80 default_server;
-    root   /usr/share/nginx/html;
-    index  index.html index.htm;
-
-    location /redirect_me {
-        return 301 Moved Permanently;
-    }
-}" > $CONFIG_FILE
+str_replace="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com\/ permanent;"
+sudo sed -i "s/server_name _;/$str_replace/" /etc/nginx/sites-enabled/default
 
 service nginx restart
