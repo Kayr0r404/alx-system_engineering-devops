@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# install web-server(nginix) in a sever
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo ufw allow 'Nginx HTTP'
+
+sudo su
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# update config file to redirect
+printf %s "server {
+    listen 80;
+    listen [::]:80 default_server;
+    root   /usr/share/nginx/html;
+    index  index.html index.htm;
+
+    location /redirect_me {
+        return 301 Moved Permanently;
+    }
+}" > $redirect_me
+
+
+service nginx restart
