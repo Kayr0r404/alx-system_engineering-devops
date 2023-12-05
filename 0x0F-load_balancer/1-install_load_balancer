@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# install and comfigure a load balnacer
+# with haproxy and roundrobin config
+
+# update package and install HAProxy
+sudo apt-get -y update
+sudo apt-get install -y haproxy
+
+apt-get -y install haproxy=1.6.\*
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+echo -e "frontend myfrontend
+\tbind 0.0.0.0:80
+\tdefault_backend myservers
+
+backend web_servers
+        balance roundrobin
+        server 244023-web-01 18.234.105.35 check
+        server 244023-web-02 18.210.20.138 check
+' >> /etc/haproxy/haproxy.cfg
+
+# enable haproxy to be started by init script
+sed -i '/#EXTRAOPTS="-de -m 16"/a ENABLED=1' /etc/default/haproxy
+
+# restart HAproxy service
+sudo service haproxy restart
