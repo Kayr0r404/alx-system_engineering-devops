@@ -1,34 +1,44 @@
-#!/usr/bin/env bash
-# comment
+#!/bin/bash env
+# Install and configure Load-balancer
 
-# Update and install HAProxy
+# Update the system
 sudo apt update
+sudo apt upgrade -y
+
+# Install HAProxy
 sudo apt install -y haproxy
 
 # Configure HAProxy
-sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
-global
-    # Add any global settings here
-
+cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg
 defaults
-    mode http
-    timeout client 10s
-    timeout connect 5s
-    timeout server 10s
-    timeout http-request 10s
+        mode http
+        timeout client 10s
+        timeout connect 5s
+        timeout server 10s
+        timeout http-request 10s
 
-frontend app
-    bind *:80
-    mode http
-    default_backend servers
+frontend main
+    bind 54.144.249.182:80
+    default_backend web_servers
 
-backend servers
-    mode http
+backend web_servers
     balance roundrobin
-    server 226796-web-01 100.25.136.187:80 check
-    server 226796-web-02 54.236.50.4:80 check
+    server 226796-web-02 100.25.136.187:80 check
+    server 226796-web-01 54.236.50.4:80 check
 EOF
 
-# Enable and start HAProxy service
+# Ensure HAProxy can be managed via init script
 sudo systemctl enable haproxy
-sudo systemctl start haproxy
+
+# Check if HAProxy is running before restarting
+if pgrep haproxy > /dev/null; then
+    # Verify the configuration
+    if sudo haproxy -c -f /etc/haproxy/haproxy.cfg; then
+        # Restart HAProxy to apply the changes
+        sudo systemctl restart haproxy
+#     else
+#         echo "Error: HAProxy configuration is invalid. Please check the configuration file."
+    fi
+# else
+#     echo "Error: HAProxy is not running. Please check the installation."
+fi
