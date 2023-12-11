@@ -1,4 +1,4 @@
-#!/bin/bash env
+#!/usr/bin/env bash
 # Install and configure Load-balancer
 
 # Update the system
