@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# display information for its subdomains www, lb-01, web-01 and web-02
+
+# Function to display information about a subdomain
+function display_info() {
+    local domain=$1
+    local sub_domain=$2
+
+    # Check if both domain and subdomain are provided
+    if [ -n "${sub_domain}" ]; then
+        default_subdomains=("${sub_domain}")
+    else
+        # If only the domain is provided, display information for default subdomains
+        default_subdomains=("www" "lb-01" "web-01" "web-02")
+    fi
+
+    for sub_domain in "${default_subdomains[@]}"; do
+        # Retrieve information using dig and awk
+        dig_output="${sub_domain}.${domain}"
+        
+        if [ -n "$dig_output" ]; then
+            record_type=$(dig "$dig_output" | awk '/ANSWER SECTION:/ {getline; print $4}')
+            destination=$(dig "$dig_output" | awk '/ANSWER SECTION:/ {getline; print $5}')
+            
+            # Print formatted output
+            echo "The subdomain $sub_domain is a $record_type record and points to $destination"
+        else
+            echo "Subdomain: $sub_domain | No information found."
+        fi
+    done
+}
+
+# Example usage:
+# display_info "example.com" "subdomain"
+display_info "$1" "$2"
