@@ -5,7 +5,7 @@ returns information about his/her TODO list progress
 '''
 import json
 import requests
-from sys import argv
+
 
 if __name__ == '__main__':
     try:
@@ -26,7 +26,7 @@ if __name__ == '__main__':
                 ))
 
             if todo_request.status_code == 200 and \
-                user_request.status_code == 200:
+                    user_request.status_code == 200:
                 username = user_request.json()['username']
                 todo_list = []
 

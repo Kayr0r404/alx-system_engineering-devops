@@ -16,10 +16,13 @@ if __name__ == '__main__':
     r_usr = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}'.format(employee_id))
 
+    usrname = r_usr.json()['username']
+
     with open(file='{}.csv'.format(employee_id),
               mode='w', newline="") as csvfile:
         csv_writer = csv.writer(csvfile)
         for data in r_todo.json():
             csv_writer.writerow([int(employee_id),
+                                 usrname,
                                  data.get('completed'),
                                  data.get('title')])
