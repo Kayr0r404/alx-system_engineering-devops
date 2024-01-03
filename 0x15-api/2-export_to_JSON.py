@@ -31,5 +31,3 @@ if __name__ == '__main__':
     dict[employee_id] = list
     with open(file='{}.json'.format(employee_id), mode='w') as jsonfile:
         json.dump(dict, jsonfile)
-    
-    

@@ -15,7 +15,7 @@ if __name__ == '__main__':
             employee_id))
     r_usr = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}'.format(employee_id))
-    
+
     with open(file='{}.csv'.format(employee_id),
               mode='w', newline="") as csvfile:
         csv_writer = csv.writer(csvfile)
@@ -23,5 +23,3 @@ if __name__ == '__main__':
             csv_writer.writerow([int(employee_id),
                                  data.get('completed'),
                                  data.get('title')])
-
-    
