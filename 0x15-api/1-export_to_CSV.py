@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     with open(file='{}.csv'.format(employee_id),
               mode='w', newline="") as csvfile:
-        csv_writer = csv.writer(csvfile)
+        csv_writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         for data in r_todo.json():
             csv_writer.writerow([int(employee_id),
                                  usrname,
