@@ -9,8 +9,8 @@ BASE_URL = 'https://www.reddit.com'
 '''
 
 
-def top_ten(subreddit):
-    '''Retrieves the title of the top ten posts from a given subreddit.
+def recurse(subreddit, hot_list=[], n=0, after=None):
+    '''Retrieves a list of hot posts from a given subreddit.
     '''
     api_headers = {
         'Accept': 'application/json',
@@ -22,20 +22,28 @@ def top_ten(subreddit):
             'Edg/97.0.1072.62'
         ])
     }
-    sort = 'top'
-    limit = 10
+    sort = 'hot'
+    limit = 30
     res = requests.get(
-        '{}/r/{}/.json?sort={}&limit={}'.format(
+        '{}/r/{}/.json?sort={}&limit={}&count={}&after={}'.format(
             BASE_URL,
             subreddit,
             sort,
-            limit
+            limit,
+            n,
+            after if after else ''
         ),
         headers=api_headers,
         allow_redirects=False
     )
     if res.status_code == 200:
-        for post in res.json()['data']['children'][0:10]:
-            print(post['data']['title'])
+        data = res.json()['data']
+        posts = data['children']
+        count = len(posts)
+        hot_list.extend(list(map(lambda x: x['data']['title'], posts)))
+        if count >= limit and data['after']:
+            return recurse(subreddit, hot_list, n + count, data['after'])
+        else:
+            return hot_list if hot_list else None
     else:
-        print(None)
+        return hot_list if hot_list else None
