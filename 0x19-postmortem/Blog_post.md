@@ -1,5 +1,6 @@
 # Postmortem
 
+![Flogging a dead horse](post-mortem-meetings.jpg)
 
 ## Issue Summary
 
